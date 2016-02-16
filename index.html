@@ -48,8 +48,8 @@
     ReactDOMTextComponent.prototype.receiveComponent = function (nextText) {
         var nextStringText = '' + nextText;
         //跟以前保存的字符串比较
-        if(nextStringText!==this._currentElement){
-            this._currentElement=nextStringText;
+        if (nextStringText !== this._currentElement) {
+            this._currentElement = nextStringText;
             //替换整个节点
             $('[data-reactid="' + this._rootNodeID + '"]').html(this._currentElement);
         }
@@ -116,7 +116,7 @@
         return tagOpen + '>' + content + tagClose;
 
     };
-    ReactDOMComponent.prototype.receiveComponent = function(nextElement) {
+    ReactDOMComponent.prototype.receiveComponent = function (nextElement) {
         var lastProps = this._currentElement.props;
         var nextProps = nextElement.props;
 
@@ -127,7 +127,7 @@
         this._updateDOMChildren(nextElement.props.children);
     };
     //属性的变更并不是特别复杂，主要就是找到以前老的不用的属性直接去掉，新的属性赋值，并且注意其中特殊的事件属性做出特殊处理就行了
-    ReactDOMComponent.prototype._updateDOMProperties = function(lastProps, nextProps) {
+    ReactDOMComponent.prototype._updateDOMProperties = function (lastProps, nextProps) {
         var propKey;
         //遍历，当一个老的属性不在新的属性集合里时，需要删除掉。
 
@@ -168,17 +168,17 @@
 
     };
     //全局的更新深度标识
-    var updateDepth=0;
+    var updateDepth = 0;
     //全局的更新队列，所有的差异都存在这里
-    var diffQueue=[];
-    ReactDOMComponent.prototype._updateDOMChildren = function(nextChildrenElements){
+    var diffQueue = [];
+    ReactDOMComponent.prototype._updateDOMChildren = function (nextChildrenElements) {
         //就像我们之前说的一样，更新子节点包含两个部分，一个是递归的分析差异，把差异添加到队列中。然后在合适的时机调用_patch把差异应用到dom上
 
         updateDepth++;
         //_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。
-        this._diff(diffQueue,nextChildrenElements);
+        this._diff(diffQueue, nextChildrenElements);
         updateDepth--;
-        if(updateDepth == 0){
+        if (updateDepth == 0) {
             //在需要的时候调用patch，执行具体的dom操作
             this._patch(diffQueue);
             diffQueue = [];
@@ -213,7 +213,7 @@
     function generateComponentChildren(prevChildren, nextChildrenElements) {
         var nextChildren = {};
         nextChildrenElements = nextChildrenElements || [];
-        $.each(nextChildrenElements, function(index, element) {
+        $.each(nextChildrenElements, function (index, element) {
             var name = element.key ? element.key : index;
             var prevChild = prevChildren && prevChildren[name];
             var prevElement = prevChild && prevChild._currentElement;
@@ -237,9 +237,8 @@
     }
 
 
-
     //_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。
-    ReactDOMComponent.prototype._diff = function(diffQueue, nextChildrenElements) {
+    ReactDOMComponent.prototype._diff = function (diffQueue, nextChildrenElements) {
         var self = this;
         //拿到之前的子节点的 component类型对象的集合,这个是在刚开始渲染时赋值的，记不得的可以翻上面
         //_renderedChildren 本来是数组，我们搞成map
@@ -248,7 +247,7 @@
         var nextChildren = generateComponentChildren(prevChildren, nextChildrenElements);
         //重新赋值_renderedChildren，使用最新的。
         self._renderedChildren = [];
-        $.each(nextChildren, function(key, instance) {
+        $.each(nextChildren, function (key, instance) {
             self._renderedChildren.push(instance);
         });
 
@@ -306,7 +305,6 @@
         }
 
 
-
         //对于老的节点里有，新的节点里没有的那些，也全都删除掉
         for (name in prevChildren) {
             if (prevChildren.hasOwnProperty(name) && !(nextChildren && nextChildren.hasOwnProperty(name))) {
@@ -324,7 +322,7 @@
                 }
             }
         }
-    }
+    };
 
     function ReactCompositeComponent(element) {
         //存放元素的element对象
