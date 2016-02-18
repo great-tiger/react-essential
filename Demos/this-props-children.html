@@ -1,0 +1,49 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>演示 this.props.children </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * this.props.children 引用了子元素，如果想在render中输出，则直接使用{}即可
+     */
+    var Divider=React.createClass({
+        render:function(){
+            return (
+                    <div className="divider">
+                        {this.props.children}
+                    </div>
+            );
+        }
+    });
+    React.render(<Divider><div>1</div><div>2</div></Divider>,document.getElementById('demo'));
+
+    /**
+     * 不使用jsx，如下：
+     */
+
+    var Divider1=React.createClass({
+        render:function(){
+            return React.DOM.div({className:"divider"},this.props.children);
+        }
+    });
+
+//    React.render(React.createElement(Divider1,null,[
+//            React.DOM.div(null,"test1"),
+//            React.DOM.div(null,"test2")
+//    ]),document.getElementById("demo1"));
+
+//指定子元素也可以这样写，但是个人觉得上面正好理解
+    React.render(React.createElement(Divider1,null,React.DOM.div(null,"test1"),React.DOM.div(null,"test2")),document.getElementById("demo1"));
+</script>
+
+</body>
+</html>
