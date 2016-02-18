@@ -1,0 +1,25 @@
+
+React创建元素可以调用React.createElement
+
+React还为我们提供了一种简便的写法
+React.DOM.p(属性集合,children)  这里就不用传入type了
+
+这种简便的写法是怎么来的呢？
+
+createFactory
+
+对的，就是它
+
+ createFactory: function(type) {
+            //正是调用的createElement
+            var validatedFactory = ReactElementValidator.createElement.bind(
+              null,
+              type
+            );
+            validatedFactory.type = type;
+            return validatedFactory;
+ }
+
+ 当然，我们也可以通过
+ React.createFactory
+ 创建快捷方式了

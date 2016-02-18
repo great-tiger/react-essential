@@ -20136,9 +20136,12 @@
          * object and constructs a new object from the results. The `callback` is
          * invoked with three arguments:
          *
-         *  - the property value
-         *  - the property name
-         *  - the object being traversed
+         * 对object中的每一个属性执行callback方法，构造出一个新对象，并返回。
+         * callback的三个参数如下：
+         *
+         *  - the property value 属性值
+         *  - the property name 属性名称
+         *  - the object being traversed 需要被map的对象
          *
          * Properties that are added after the call to `mapObject` will not be visited
          * by `callback`. If the values of existing properties are changed, the value
