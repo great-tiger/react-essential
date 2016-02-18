@@ -14,6 +14,7 @@
 <script type="text/jsx">
     /**
      * this.props.children 引用了子元素，如果想在render中输出，则直接使用{}即可
+     * jsx会转换为原生的js函数，所以一些关键词是不能用的。比如for(使用htmlFor)，class(className)
      */
     var Divider=React.createClass({
         render:function(){
