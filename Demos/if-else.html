@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件判断</title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+<div id="demo2"></div>
+<div id="demo3"></div>
+<script>
+    /**
+     * 共四种方式实现条件判断
+     */
+</script>
+
+<script type="text/jsx">
+    //通过或来实现条件判断
+    var HelloMessage=React.createClass({
+        render:function(){
+            return <div className="test">Hello, {this.props.name||"world"}</div>;
+        }
+    });
+
+    React.render(<HelloMessage />,document.getElementById("demo"));
+</script>
+
+<script type="text/jsx">
+    //通过三元运算符，实现条件判断
+    var HelloMessage1=React.createClass({
+        render:function(){
+            return <div className="test">Hello, {this.props.name?this.props.name:"world"}</div>;
+        }
+    });
+
+    React.render(<HelloMessage1 />,document.getElementById("demo1"));
+</script>
+
+<script type="text/jsx">
+    //借助有函数实现条件判断
+    var HelloMessage2=React.createClass({
+        getName:function(){
+            if(this.props.name){
+                return this.props.name;
+            }
+            return "world";
+        },
+        render:function(){
+            return <div className="test">Hello, {this.getName()}</div>;
+        }
+    });
+
+    React.render(<HelloMessage2 />,document.getElementById("demo2"));
+</script>
+
+<script type="text/jsx">
+    //通过函数表达式实现
+    var HelloMessage3=React.createClass({
+        render:function(){
+            return <div className="test">Hello, {(function(obj){
+                if(obj.props.name){
+                    return obj.props.name;
+                }
+                return "world";
+            })(this)}</div>;
+        }
+    });
+
+    React.render(<HelloMessage3 />,document.getElementById("demo3"));
+</script>
+
+</body>
+</html>
