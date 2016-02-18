@@ -8,63 +8,158 @@
 </head>
 <body>
 <div id="demo1"></div>
+<div id="demo2"></div>
+<!--<script type="text/jsx">-->
+    <!--/**-->
+     <!--* 实例化阶段-->
+     <!--* getDefaultProps-->
+     <!--* getInitialState-->
+     <!--* componentWillMount-->
+     <!--* render-->
+     <!--* componentDidMount-->
+     <!--*/-->
+    <!--var count = 0;-->
+    <!--var style = {-->
+        <!--color: "red",-->
+        <!--border: "1px #000 solid"-->
+    <!--};-->
+    <!--var HelloWorld = React.createClass({-->
+        <!--getDefaultProps: function () {//该方法只会被调用一次，任何复杂的值，比如对象和数组，都会在所有的实例中共享-->
+            <!--console.log("getDefaultProps, 1");-->
+            <!--return {name: "Tom"};-->
+        <!--},-->
+        <!--getInitialState: function () {-->
+            <!--//每个实例只会被调用一次，获取初始化状态。-->
+            <!--//在这个方法里，已经可以访问this.props了-->
+            <!--console.log("getInitialState, 2");-->
+            <!--return {myCount: count++, ready: false};-->
+        <!--},-->
+        <!--componentWillMount: function () {-->
+            <!--console.log("componentWillMount, 3");-->
+            <!--/**-->
+             <!--* render之前被调用，这里是修改state的最后机会了-->
+             <!--*/-->
+            <!--this.setState({ready: true});-->
+        <!--},-->
+        <!--render: function () {-->
+            <!--/**-->
+             <!--* 对于一个组件这个方法是必须的-->
+             <!--* 特点：-->
+             <!--* 只能通过this.props和this.state访问数据-->
+             <!--* 可以返回null,false 或者任何React组件-->
+             <!--* 只能出现一个顶级组件-->
+             <!--* 必须纯净，意味着不能改变组件的状态或者修改DOM的输出-->
+             <!--*/-->
+            <!--console.log("render, 4");-->
+            <!--return <p>Hello, {this.props.name ? this.props.name : "World"}-->
+                <!--<br/>-->
+                <!--{"" + this.state.ready} {this.state.myCount}-->
+            <!--</p>;-->
+        <!--},-->
+        <!--componentDidMount: function () {-->
+            <!--/**-->
+             <!--* render 方法返回的不是真正的DOM,这个方法执行的时候，真正的DOM已经生成-->
+             <!--* 我们可以通过调用this.getDOMNode()访问到它-->
+             <!--* 在这里可以做什么呢？-->
+             <!--* 计算DOM的宽度-->
+             <!--* 运行一个jQuery插件-->
+             <!--*/-->
+            <!--console.log("componentDidMount, 5");-->
+        <!--}-->
+    <!--});-->
+    <!--React.render(<div style={style}>-->
+        <!--<HelloWorld></HelloWorld>-->
+        <!--<br/>-->
+    <!--</div>, document.getElementById("demo1"));-->
+
+    <!--/**-->
+     <!--* 触发顺序如下：-->
+     <!--* getDefaultProps, 1-->
+     <!--* getInitialState, 2-->
+     <!--* componentWillMount, 3-->
+     <!--* render, 4-->
+     <!--* componentDidMount, 5-->
+     <!--*/-->
+
+<!--</script>-->
+
+
 <script type="text/jsx">
-    var count = 0;
+    /**
+     * 存在期 组件已经渲染完成并且用户可以与它交互
+     * componentWillReceiveProps
+     * shouldComponentUpdate
+     * componentWillUpdate
+     * componentDidUpdate
+     */
     var style = {
         color: "red",
         border: "1px #000 solid",
     };
-    var HelloWorld = React.createClass({
-        getDefaultProps: function () {//该方法只会被调用一次，任何复杂的值，比如对象和数组，都会在所有的实例中共享
-            console.log("getDefaultProps, 1");
-            return {name: "Tom"};
-        },
-        getInitialState: function () {
-            //每个实例只会被调用一次，获取初始化状态。
-            //在这个方法里，已经可以访问this.props了
-            console.log("getInitialState, 2");
-            return {myCount: count++,ready: false};
-        },
-        componentWillMount: function () {
-            console.log("componentWillMount, 3");
+    var HelloWorld1 = React.createClass({
+        componentWillReceiveProps: function (newProps) {
             /**
-             * render之前被调用，这里是修改state的最后机会了
-             */
-            this.setState({ready: true});
-        },
-        render: function () {
-            /**
-             * 对于一个组件这个方法是必须的
-             * 特点：
-             * 只能通过this.props和this.state访问数据
-             * 可以返回null,false 或者任何React组件
-             * 只能出现一个顶级组件
-             * 必须纯净，意味着不能改变组件的状态或者修改DOM的输出
-             */
-            console.log("render, 4");
-            return <p>Hello, {this.props.name ? this.props.name : "World"}<br/>{"" + this.state.ready} {this.state.myCount}</p>;
-        },
-        componentDidMount: function () {
-            /**
-             * render 方法返回的不是真正的DOM,这个方法执行的时候，真正的DOM已经生成
-             * 我们可以通过调用this.getDOMNode()访问到它
+             * 不太理解，书上解释
+             * 在任意时刻，组件的props都可以通过父辈组件来更改。
+             * 出现这种情况时，该方法会被调用。你也将获得更改props对象及更新state的机会
              *
              */
-            console.log("componentDidMount, 5");
+            console.log("componentWillReceiveProps 1");
+            console.log(newProps);
+        },
+        shouldComponentUpdate: function () {
+            /**
+             * 返回false，则是告诉React跳过调用render方法，以及componentWillUpdate、componentDidUpdate
+             *
+             * 注意：首次渲染或者调用了forceUpdate，这个方法不会被调用
+             *
+             */
+            console.log("shouldComponentUpdate 2");
+            return true;
+        },
+        componentWillUpdate: function () {
+            /**
+             * 注意：你不可以在这个方法中修改prop及state。
+             * 而应该在componentWillReceiveProps中
+             */
+            console.log("componentWillUpdate 3");
+        },
+        render: function () {
+            console.log("render 4");
+            return <p>Hello, {this.props.name ? this.props.name : "World"}</p>;
+        },
+        componentDidUpdate: function () {
+             console.log("componentDidUpdate,5");
+            /**
+             * 在这里我们已经可以获得渲染好的DOM了
+             */
         }
     });
-    React.render(<div style={style}><HelloWorld></HelloWorld><br/></div>,document.getElementById("demo1"));
-
-    /**
-     * 触发顺序如下：
-     * getDefaultProps, 1
-     * getInitialState, 2
-     * componentWillMount, 3
-     * render, 4
-     * componentDidMount, 5
-     */
-
+    var HelloUniverse = React.createClass({
+        getInitialState: function () {
+            return {name: ''};
+        },
+        handleChange: function (event) {
+            this.setState({name: event.target.value});
+        },
+        render: function () {
+            return <div>
+                <HelloWorld1 name={this.state.name} name1="haha"></HelloWorld1>
+                <br/>
+                <input type="text" onChange={this.handleChange}/>
+            </div>
+        }
+    });
+    React.render(<div style={style}>
+        <HelloUniverse></HelloUniverse>
+    </div>, document.getElementById("demo2"));
 </script>
-
+<script>
+    /**
+     *
+     * componentWillUnmount 销毁阶段
+     *
+     */
+</script>
 </body>
 </html>
