@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 介绍与数据流有关的理论 </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * 经典领悟：
+     * props 向组件中传递数据（一个组件，绝对不可以自己修改自己的props）
+     * state 每个组件内部维护的状态
+     *
+     */
+
+    var CountryDropdown=React.createClass({
+       getInitialState:function(){
+           return {
+               showOptions:false
+           };
+       },
+        render:function(){
+            var options;
+            if(this.state.showOptions){
+                options=(
+                        <ul className="option">
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                );
+            }
+
+            return (
+                    <div className="dropdown" onClick={this.handleClick}>
+                        <label>Choose a country</label>{options}
+                    </div>
+            );
+        },
+        handleClick:function() {
+            this.setState({
+                showOptions: true
+            });
+        }
+    });
+
+    React.render(<CountryDropdown />,document.getElementById("demo1"));
+
+</script>
+
+</body>
+</html>
