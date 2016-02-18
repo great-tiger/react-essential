@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title></title>
     <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
 </head>
 <body>
 <div id="container"></div>
-<script>
+<script type="text/jsx">
     var ExampleApplication = React.createClass({
         render: function () {
             var elapsed = Math.round(this.props.elapsed / 100);
@@ -15,22 +16,13 @@
             var message =
                     'React has been successfully running for ' + seconds + ' seconds.';
 
-            return React.DOM.p(null, message);
+            return <p>{message}</p>;
         }
     });
 
-    // Call React.createFactory instead of directly call ExampleApplication({...}) in React.render
-    // 创建ExampleApplication工厂，这个工厂只用来生产ExampleApplication。
-    var ExampleApplicationFactory = React.createFactory(ExampleApplication);
-
     var start = new Date().getTime();
     setInterval(function () {
-        React.render(
-                ExampleApplicationFactory({elapsed: new Date().getTime() - start}),
-                document.getElementById('container')
-        );
-       // React.render(React.createElement(ExampleApplication,{elapsed: new Date().getTime() - start}),document.getElementById("container"));
-
+        React.render(<ExampleApplication elapsed={new Date().getTime() - start } />,document.getElementById('container'));
     }, 50);
 </script>
 </body>
