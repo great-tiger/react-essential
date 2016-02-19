@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 介绍与DOM操作有关的理论 </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * 多数情况下，React的虚拟DOM足以用来创建你想要的用户体验，但是某些情况下不得不去操作底层的DOM。
+     *
+     * 需要与一个没有使用React的第三方类库整合，
+     * 或者执行一个React没有原生支持的操作
+     *
+     * 注意不要在render方法中，调用getDOMNode() 因为这时dom还没有装载，也有可能不是最新的。
+     * 可以使用的地方：componentDidMount 中
+     * 事件处理器也可以在组件挂载后触发，所以事件处理程序中，也可以获取DOM
+     *
+     * refs和getDOMNode是没有办法时候的办法，平时慎用。性能障碍，增加复杂性；
+     *
+     */
+
+
+</script>
+
+</body>
+</html>
