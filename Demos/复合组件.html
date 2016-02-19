@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 介绍与复合组件有关的理论 </title>
+    <link href='../css/app.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+
+
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * 1、本质上，一个组件就是一个js函数，它接受props和state。并输出渲染好的html。
+     * 2、相对于继承，React更偏爱复合。
+     *
+     * 下面的例子演示了复合组件
+     *
+     * 演示了子组件通知父组件，通过事件
+     *
+     * 这个例子也演示了
+     * componentWillReceiveProps
+     * 的作用。父组件更新了子组件的属性，会调用这个方法。
+     * 在这个方法中，可以更新state。
+     *
+     */
+    var idCounter=0;
+    function uniqueId(prefix) {
+        var id = ++idCounter;
+        return prefix + id;
+    }
+
+
+    var AnswerRadioInput = React.createClass({
+        propTypes: {
+            id: React.PropTypes.string,
+            name: React.PropTypes.string.isRequired,
+            label: React.PropTypes.string.isRequired,
+            value: React.PropTypes.string.isRequired,
+            checked: React.PropTypes.bool
+        },
+        handleChanged:function(e){
+           var checked= e.target.checked;
+            this.setState({checked:checked});
+            if(checked){
+                this.props.onChanged(this.props.value);
+            }
+        },
+        getDefaultProps:function(){
+            // 对每一个非必须属性，我们需要提供默认值。
+            // 如果父组件没有提供值，他们就派上了用场。
+            // 注意这里不能提供id，因为每个id都要不同
+            return {
+                id:null,
+                checked:false
+            };
+        },
+        getInitialState:function(){
+            var id=this.props.id?this.props.id:uniqueId("radio-");
+            return {
+                checked:!!this.props.checked,
+                id:id,
+                name:id
+            };
+        },
+        componentWillReceiveProps: function (nextProps) {
+            if(nextProps.checked !== undefined) {
+                this.setState({
+                    checked: nextProps.checked
+                });
+            }
+        },
+        render: function () {
+            return (<div className="radio">
+                        <label htmlFor={this.props.id}>
+                            <input type="radio"
+                                   name={this.props.name}
+                                   id={this.props.id}
+                                   value={this.props.value}
+                                   checked={this.state.checked}
+                                   onChange={this.handleChanged} />
+                            {this.props.label}
+                        </label>
+                    </div>);
+        }
+    });
+
+    React.render(<AnswerRadioInput id="1" name="1" value="10" label="测试" />,document.getElementById("demo"));
+
+
+    var AnswerMultipleChoiceQuestion=React.createClass({
+        propTypes:{
+            value:React.PropTypes.string,
+            choices:React.PropTypes.array.isRequired,
+            onCompleted:React.PropTypes.func.isRequired
+        },
+        handleChanged:function(value){
+            this.setState({value:value});
+            this.props.onCompleted(value);
+        },
+        getInitialState: function () {
+            return {
+                id:uniqueId('multiple-choice-'),
+                value:this.props.value
+            };
+        },
+        renderChoices:function(){
+            return this.props.choices.map(function(choice,i){
+                /**
+                 * 这里没有采用书上的写法，书上是直接调用的AnswerRadioInput函数。怀疑是老版本的写法。
+                 * 在这个版本版本上行不同
+                 */
+                return React.createElement(AnswerRadioInput,{
+                    id:"choice"+i,
+                    name:this.state.id,
+                    label:choice,
+                    value:choice,
+                    checked:this.state.value===choice,
+                    onChanged:this.handleChanged
+                });
+            }.bind(this));
+        },
+        render:function(){
+            return (
+                    <div className="form-group">
+                        <label className="survey-item-label" htmlFor={this.state.id}>
+                            {this.props.label}
+                        </label>
+                        <div className="survey-item-content">
+                            {this.renderChoices()}
+                        </div>
+                    </div>
+            );
+        }
+    });
+
+    var choices=["北京","天津","上海","重庆"];
+
+    var handleChange=function(value){
+        alert(value);
+    };
+
+    React.render(<AnswerMultipleChoiceQuestion value="上海" onCompleted={handleChange}  choices={choices} label="单选组" />,document.getElementById("demo1"));
+
+
+</script>
+
+</body>
+</html>
