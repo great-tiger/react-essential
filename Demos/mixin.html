@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 介绍与mixin有关的理论 </title>
+    <link href='../css/app.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * mixin是解决代码重复的强大工具
+     * 它实质上就是一个简单对象，也可以通过一个函数，返回一个对象
+     *
+     * React.createClass({
+     *   mixins:[{
+     *      getInitialState:function(){ return {a:1} ;}
+     *   }],
+     *   getInitialState:function(){ return {a:2}; }
+     * })
+     *
+     * 得到的初始state是{a:1,b:2}
+     *
+     * 以component开头的生命周期方法，
+     * 如componentDidMount 会按照mixin数组中定义的顺序调用，并最终调用组件类中定义的 componentDidMount
+     *
+     */
+    var IntervalMixin=function(){
+
+        return {
+            setInterval:function(callback,interval){
+                var token=setInterval(callback,interval);
+                this.__intervals.push(token);
+                return token;
+            },
+            componentDidMount:function(){
+                this.__intervals=[];
+            },
+            componentWillUnmount:function(){
+                this.__intervals.map(clearInterval);
+            }
+        };
+
+    };
+
+
+    var Timer=React.createClass({
+        mixins:[IntervalMixin(1000)],//注意这里是mixins,不是mixin。
+        componentDidMount:function(){
+            console.log('Timer componentDidMount',this);
+            this.setInterval(this.forceUpdate.bind(this),1000);
+        },
+        render:function(){
+            var from=Number(new Date(2014,0,1));
+            var to=Date.now();
+            console.log('Timer render');
+            return (
+                    <div>{ Math.round((to-from)/1000) }</div>
+            );
+        }
+    });
+
+    React.render(<Timer />,document.getElementById("demo"));
+
+</script>
+
+</body>
+</html>
