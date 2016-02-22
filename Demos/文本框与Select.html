@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * React对textarea和select的接口做了一些修改，提升了一致性。
+     *
+     * 非约束
+     * <textarea defaultValue="Hello World" />
+     *
+     * <select defaultValue="B"> 支持多选defaultValue={["A","B"]}
+     *     <option value="A">First Option</option>
+     *     <option value="B">Second Option</option>
+     *     <option value="C">Third Option</option>
+     * </select>
+     *
+     * 约束的
+     * <textarea value={this.state.helloTo} onChange={this.handleChange} />
+     *
+     * <select value={this.state.helloTo} onChange={this.handleChange}> 支持多选为value传递数组
+     *     <option value="A">First Option</option>
+     *     <option value="B">Second Option</option>
+     *     <option value="C">Third Option</option>
+     * </select>
+     */
+
+    var MyForm=React.createClass({
+        getInitialState: function () {
+            return {
+                options:["B"]
+            };
+        },
+        handleChange:function(event){
+            var checked=[];
+            var sel=event.target;
+            for(var i=0;i<sel.length;i++){
+                var option=sel.options[i];
+                if(option.selected){
+                    checked.push(option.value);
+                }
+            }
+            this.setState({options:checked});
+        },
+        submitHandler:function(event){
+            event.preventDefault();
+            alert(this.state.options);
+        },
+        render:function(){
+            return (
+                    <form onSubmit={this.submitHandler}>
+                        <select multiple="true" value={this.state.options} onChange={this.handleChange}>
+                            <option value="A">First Option</option>
+                            <option value="B">Second Option</option>
+                            <option value="C">Third Option</option>
+                        </select>
+                        <br />
+                        <button type="submit">Speak</button>
+                    </form>
+            );
+        }
+    });
+
+    React.render(<MyForm />,document.getElementById("demo"));
+</script>
+
+</body>
+</html>
