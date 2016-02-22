@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+
+    <script src="//cdn.bootcss.com/react/0.12.0/react-with-addons.js"></script>
+    <script src="//cdn.bootcss.com/react/0.12.0/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * ReactCSSTransitionGrop是一款插件，可以在文件顶部通过
+     * var ReactCSSTransitionGroup=React.addons.ReactCSSTransitionGroup;语句引入
+     *
+     * <ReactCSSTransitionGroup transitionName='question'>
+     *     {question}
+     * </ReactCSSTransitionGroup>
+     *
+     * 当子组件进入或退出ReactCSSTransitionGroup时，会给它添加4个class
+     * question-enter
+     * question-enter-active
+     * question-enter这个class是组件被添加到渐变组后即刻添加上的，而question-enter-active则是在下一轮渲染时添加的。
+     * 这样设计让你能轻松地定义渐变开始时的样式，结束时的样式以及如何进行渐变。
+     *
+     * question-leave
+     * question-leave-active
+     *
+     *
+     * 也可以通过配置，禁用某些阶段
+     * transitionEnter=false
+     * transitionLeave=false
+     *
+     *********************************************************************************
+     * 使用渐变组的隐患
+     *
+     * 1、渐变组 会延迟子组件的移除直到动画完成。如果你把一个列表组件包裹进一个渐变组中，却没有为transitionName属性
+     * 指定class，这些组件将永远无法被删除
+     * 2、渐变组的每一个子组件都必须设置一个读一无二的key属性。
+     *
+     *********************************************************************************
+     * 当css动画不能满足要求的时候，可以通过间隔渲染来实现动画
+     *
+     * requestAnimationFrame 实现间隔渲染
+     * 如果不支持，则降级到setTimeout
+     *
+     */
+
+
+    
+</script>
+
+</body>
+</html>
