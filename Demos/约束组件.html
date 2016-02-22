@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 介绍与约束组件的理论 </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * 约束组件的模式与React其他类型组件的模式一致
+     * 表单组件的状态交由React组件控制，状态值被存储在React组件的State中
+     *
+     * 注意下面的例子并不会产生闪烁，这是因为React拦截了浏览器原生的change事件。
+     */
+
+    var MyForm=React.createClass({
+        getInitialState:function(){
+            return {
+                helloTo:"Hello World!"
+            };
+        },
+        handleChange:function(event){
+            this.setState({
+                helloTo:event.target.value.toUpperCase()//约束组件的好处，现在可以控制数据流
+            });
+        },
+        submitHandler:function(event){
+            event.preventDefault();
+            alert(this.state.helloTo);
+        },
+        render:function(){
+            return (
+                    <form onSubmit={this.submitHandler}>
+                        <input type="text" value={this.state.helloTo} onChange={this.handleChange} />
+                        <br />
+                        <button type="submit">Speak</button>
+                    </form>
+            );
+        }
+    });
+
+    React.render(<MyForm />,document.getElementById("demo"));
+</script>
+
+</body>
+</html>

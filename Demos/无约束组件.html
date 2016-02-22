@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 介绍与无约束组件的理论 </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * 表单组件与React组件的行为方式并不一致
+     * 给定HTML的<input />一个值，这个<input />的值仍是可以改变的。
+     * 这正是无约束组件的由来
+     *
+     */
+
+    var MyForm=React.createClass({
+        submitHandler:function(event){
+            event.preventDefault();
+            //通过ref访问输入框
+            var helloTo=this.refs.helloTo.getDOMNode().value;
+            alert(helloTo);
+        },
+        render:function(){
+            return (
+                    <form onSubmit={this.submitHandler}>
+                        <input ref="helloTo" type="text" defaultValue="Hello World!" />
+                        <br />
+                        <button type="submit">Speak</button>
+                    </form>
+            );
+        }
+    });
+
+    React.render(<MyForm />,document.getElementById("demo"));
+</script>
+
+</body>
+</html>
