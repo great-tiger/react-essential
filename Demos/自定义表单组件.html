@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+
+    <script src="//cdn.bootcss.com/react/0.12.0/react-with-addons.js"></script>
+    <script src="//cdn.bootcss.com/react/0.12.0/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     *
+     * 这个例子待深入研究
+     *
+     * 同时支持约束和非约束接口的约束组件
+     *
+     * 高版本中transferPropsTo方法已被废弃，所以这里例子使用了0.12版本。
+     *
+     * https://gist.github.com/sebmarkbage/a6e220b7097eb3c79ab7
+     *
+     *
+     */
+
+    var Radio = React.createClass({
+        propTypes: {
+            onChange: React.PropTypes.func
+        },
+        getInitialState: function () {
+            return {
+                value: this.props.defaultValue
+            };
+        },
+        handleChange: function (event) {
+            if (this.props.onChange) {
+                this.props.onChange(event);
+            }
+            this.setState({
+                value: event.target.value
+            });
+        },
+        render: function () {
+            var children = {};
+            var value = this.props.value || this.state.value;
+
+            React.Children.forEach(this.props.children, function (child, i) {
+                var label = <label>
+                    <input
+                            type="radio"
+                            name={this.props.name}
+                            value={child.props.value}
+                            checked={child.props.value == value}
+                            onChange={this.handleChange} />
+                    {child.props.children}
+                    <br/>
+                </label>;
+
+                children['label' + i] = label;
+            }.bind(this));
+
+            return this.transferPropsTo(<span>{children}</span>);
+        }
+    });
+
+
+    var MyForm = React.createClass({
+        submitHandler: function (event) {
+            event.preventDefault();
+            alert(this.refs.radio.state.value);
+        },
+        render: function () {
+            return <form onSubmit={this.submitHandler}>
+                <Radio ref="radio" name="my_radio" defaultValue="B">
+                    <option value="A">First Option</option>
+                    <option value="B">Second Option</option>
+                    <option value="C">Third Option</option>
+                </Radio>
+                <button type="submit">Speak</button>
+            </form>;
+        }
+    });
+
+    React.render(<MyForm/>, document.getElementById("demo"));
+
+
+    var MyForm1 = React.createClass({
+        getInitialState: function () {
+            return {my_radio: "B"};
+        },
+        handleChange: function (event) {
+            this.setState({
+                my_radio: event.target.value
+            });
+        },
+        submitHandler: function (event) {
+            event.preventDefault();
+            alert(this.state.my_radio);
+        },
+        render: function () {
+            return <form onSubmit={this.submitHandler}>
+                <Radio name="my_radio"
+                       value={this.state.my_radio}
+                       onChange={this.handleChange}>
+                    <option value="A">First Option</option>
+                    <option value="B">Second Option</option>
+                    <option value="C">Third Option</option>
+                </Radio>
+                <button type="submit">Speak</button>
+            </form>;
+        }
+    });
+
+    React.render(<MyForm1 />,document.getElementById("demo1"));
+</script>
+
+</body>
+</html>

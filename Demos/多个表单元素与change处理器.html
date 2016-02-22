@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     *
+     */
+
+    //通过bind 传递其它参数，实现事件处理程序共用
+    var MyForm = React.createClass({
+        getInitialState: function () {
+            return {
+                given_name: "",
+                family_name: ""
+            };
+        },
+        handleChange: function (name, event) {
+            var newState = {};
+            newState[name] = event.target.value;
+            this.setState(newState);
+        },
+        submitHandler: function (event) {
+            event.preventDefault();
+            var words = [
+                "Hi",
+                this.state.given_name,
+                this.state.family_name
+            ];
+            alert(words.join(" "));
+        },
+        render: function () {
+            return <form onSubmit={this.submitHandler}>
+                <label htmlFor="given_name">Given Name:</label>
+                <br />
+                <input
+                        type="text"
+                        name="given_name"
+                        value={this.state.given_name}
+                        onChange={this.handleChange.bind(this,'given_name')}/>
+                <br />
+                <label htmlFor="family_name">Family Name:</label>
+                <br />
+                <input
+                        type="text"
+                        name="family_name"
+                        value={this.state.family_name}
+                        onChange={this.handleChange.bind(this,'family_name')}/>
+                <br />
+                <button type="submit">Speak</button>
+            </form>;
+        }
+    });
+
+    React.render(<MyForm/>, document.getElementById("demo"));
+
+
+    //实例二：借助name属性，实现事件处理程序共用
+    var MyForm1 = React.createClass({
+        getInitialState: function () {
+            return {
+                given_name: "",
+                family_name: ""
+            };
+        },
+        handleChange: function (event) {
+            var newState = {};
+            newState[event.target.name] = event.target.value;
+            this.setState(newState);
+        },
+        submitHandler: function (event) {
+            event.preventDefault();
+            var words = [
+                "Hi",
+                this.state.given_name,
+                this.state.family_name
+            ];
+            alert(words.join(" "));
+        },
+        render: function () {
+            return <form onSubmit={this.submitHandler}>
+                <label htmlFor="given_name">Given Name:</label>
+                <br />
+                <input
+                        type="text"
+                        name="given_name"
+                        value={this.state.given_name}
+                        onChange={this.handleChange}/>
+                <br />
+                <label htmlFor="family_name">Family Name:</label>
+                <br />
+                <input
+                        type="text"
+                        name="family_name"
+                        value={this.state.family_name}
+                        onChange={this.handleChange}/>
+                <br />
+                <button type="submit">Speak</button>
+            </form>;
+        }
+    });
+
+    React.render(<MyForm1/>, document.getElementById("demo1"));
+</script>
+
+</body>
+</html>
