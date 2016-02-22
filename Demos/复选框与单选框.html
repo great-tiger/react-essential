@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>复选框与单选框</title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<h2>非约束的</h2>
+<div id="demo"></div>
+<h2>约束的</h2>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     * 类型为checkbox或radio的input,与类型为text的input的行为完全不一样。
+     * 通常，复选框或单选框的值是不变的，只有checked状态会变化。
+     * 要控制他们，就要控制他们的checked属性。
+     * 你也可以在非约束的复选框或者单选框中使用defaultChecked。
+     *
+     *
+     *
+     */
+
+    //非约束
+    var MyForm1=React.createClass({
+       submitHandler:function(){
+           event.preventDefault();
+           alert(this.refs.checked.getDOMNode().checked);
+       },
+        render:function(){
+            return (
+                    <form onSubmit={this.submitHandler}>
+                        <input ref="checked" type="checkbox" value="A" defaultChecked="true" />
+                        <br/>
+                        <button type="submit">Speak</button>
+                    </form>
+            );
+        }
+    });
+
+    //约束的
+    var MyForm=React.createClass({
+        getInitialState: function () {
+            return {
+                checked:true
+            };
+        },
+        handleChange:function(event){
+            this.setState({checked:event.target.checked});
+        },
+        submitHandler:function(event){
+            event.preventDefault();
+            alert(this.state.checked);
+        },
+        render:function(){
+            return (
+                    <form onSubmit={this.submitHandler}>
+                        <input type="checkbox" value="A" checked={this.state.checked} onChange={this.handleChange} />
+                        <br />
+                        <button type="submit">Speak</button>
+                    </form>
+            );
+        }
+    });
+
+
+    React.render(<MyForm1 />,document.getElementById("demo"));
+
+
+    React.render(<MyForm />,document.getElementById("demo1"));
+</script>
+
+</body>
+</html>
