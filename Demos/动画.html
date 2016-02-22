@@ -50,8 +50,33 @@
      *
      */
 
+    var Positioner=React.createClass({
+        getInitialState:function(){
+            console.log("getInitialState",this.props);
+            return { position:0 };
+        },
+        resolveAnimationFrame:function(){
+            var position;
+            if(this.state.position<this.props.max){
+                position= this.state.position++;
+                this.setState({ position:position });
+            }
 
-    
+        },
+        componentWillUpdate:function(){
+            console.log("componentWillUpdate",this.props);
+            if(this.props.animateCompleteTimestamp){
+                requestAnimationFrame(this.resolveAnimationFrame);
+            }
+        },
+        render:function(){
+            var divStyle={ left:this.state.position,position:"absolute",backgroundColor:"#ccc" };
+            return <div style={divStyle}>This will animate</div>
+        }
+    });
+
+    React.render(<Positioner animateCompleteTimestamp="true" max="100" />,document.getElementById("demo"));
+
 </script>
 
 </body>
