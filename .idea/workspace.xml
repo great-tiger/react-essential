@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d436a528-2836-4f6d-b86f-db8de1d139c6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demos/动画.html" afterPath="$PROJECT_DIR$/Demos/动画.html" />
     </list>
     <ignored path="react-essential.iws" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="动画.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demos/动画.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55504054">
-              <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.3511008">
+              <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -798,8 +797,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demos/动画.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55504054">
-          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.3511008">
+          <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
           <folding />
         </state>
       </provider>

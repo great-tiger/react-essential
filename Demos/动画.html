@@ -50,6 +50,7 @@
      *
      */
 
+    //该实例失败，原因是 componentWillUpdate 不会被调用
     var Positioner=React.createClass({
         getInitialState:function(){
             console.log("getInitialState",this.props);
