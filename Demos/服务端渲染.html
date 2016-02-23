@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 服务端渲染 </title>
+    <script type="text/javascript" src="../react.js"></script>
+    <script type="text/javascript" src="../JSXTransformer.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<div id="demo1"></div>
+
+
+<script type="text/jsx">
+    /**
+     *
+     ************************** 渲染函数 ***********************************
+     *
+     * 在服务端渲染React Component时，无法使用标准的React.render方法，因为服务端不存在DOM。
+     * React提供了两个服务端渲染函数
+     *      React.renderToString  生成的标记包含两个data属性：data-reactid,data-react-checksum
+     *      React.renderToStaticMarkup  生成的标记不包含data属性
+     * 每个渲染函数都有自己的用途，当且仅当你不打算在客户端渲染这个组件时，才应该使用React.renderToStaticMarup
+     *
+     * ************************ 服务端组件的生命周期  ************************************
+     *
+     *  componentDidMount 和 componentWillUnmount 在服务端渲染中不会被调用
+     * 在新建一个组件时，要考虑到它可能即在服务端渲染又在客户端渲染
+     * 所以在componentWillMount内注册的所有事件监听器及定时器都可能潜在的导致服务端内存泄露
+     * 最佳的做法是在 componentDidMount内注册事件监听器及定时器，然后在componentWillUnmount内清除这两者
+     *
+     * ************************ 设计组件  ***********************************************
+     *
+     * 在设计组件时，需要保证将同一个props传递到组件中时，总会输出相同的渲染结果
+     *
+     * *********************** 异步状态  ************************************************
+     * 书没看明白啊！！！！！！！！！！！！！！！！
+     *
+     *
+     *
+     */
+</script>
+
+</body>
+</html>
