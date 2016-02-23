@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d436a528-2836-4f6d-b86f-db8de1d139c6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demos/动画.html" afterPath="$PROJECT_DIR$/Demos/动画.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Demos/性能优化.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="react-essential.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="动画.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Demos/动画.html">
+      <file leaf-file-name="性能优化.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Demos/性能优化.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3511008">
-              <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.31517962">
+              <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -75,6 +76,7 @@
         <option value="$PROJECT_DIR$/react-with-addons.js" />
         <option value="$PROJECT_DIR$/Demos/自定义表单组件.html" />
         <option value="$PROJECT_DIR$/Demos/动画.html" />
+        <option value="$PROJECT_DIR$/Demos/性能优化.html" />
       </list>
     </option>
   </component>
@@ -315,14 +317,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.3163383">
           <caret line="71" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Demos/数据流.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18539977">
-          <caret line="10" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="57" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -797,8 +791,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demos/动画.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3511008">
-          <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.29548088">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demos/数据流.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31517962">
+          <caret line="17" column="12" selection-start-line="0" selection-start-column="0" selection-end-line="57" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demos/性能优化.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31517962">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding />
         </state>
       </provider>
